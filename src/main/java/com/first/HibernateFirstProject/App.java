@@ -1,7 +1,10 @@
 package com.first.HibernateFirstProject;
 
+import java.util.List;
+
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 
 public class App
@@ -40,13 +43,19 @@ public class App
         Transaction tx = session.beginTransaction();
         
 //        Student s2 = (Student) session.get(Student.class, 113);
-
-        session.save(s1);
-        session.save(s2);
-
-        session.save(c1);
-        session.save(c2);
+//        session.save(s1);
+//        session.save(s2);
+//        session.save(c1);
+//        session.save(c2);   
         
+        Query<Student> q1 = session.createQuery("from student where rollno = 103",Student.class);
+        
+        List<Student> students = q1.list();
+//        Student s3 = (Student) q1.uniqueResult();
+        
+        for (Student s : students) {
+        	System.out.println(s) ;
+        }
         
         tx.commit();
         
